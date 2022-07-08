@@ -1,5 +1,6 @@
 import getpass
 import numpy as np
+import bcrypt
 
 
 class UsuarioBanco:
@@ -17,6 +18,7 @@ class UsuarioBanco:
 
     @staticmethod
     def validate_user(username):
+        # Valida el nombre de usuario según ciertas condiciones
         # Conditional
         # Mayor a 8 caracteres y menor a 32
         # No contener elementos especiales
@@ -41,6 +43,7 @@ class UsuarioBanco:
 
     @staticmethod
     def validate_pass(password=None):
+        # Valida la contraseña según ciertas condiciones
         # Esta funcion solo funciona con el terminal
         # Conditional
         # Mayor a 8 caracteres y menor a 32
@@ -74,6 +77,7 @@ class UsuarioBanco:
                             elif comprobar is False:
                                 raise ValueError('La contraseña no cumple con los requerimientos')
                         print('La contraseña es correcta')
+                        password = UsuarioBanco.encrypt(password)
                         return password
                     else:
                         raise ValueError('La contraseña no coincide con la repetición')
@@ -84,6 +88,7 @@ class UsuarioBanco:
 
     @staticmethod
     def validate_mail(mail=None):
+        # Valida el correo electronico dependiendo del tipo de este
         if mail is None:
             able = np.array(['@gmail.com', '@hotmail.com', '@outlook.com'])
             while True:
@@ -101,6 +106,7 @@ class UsuarioBanco:
 
     @staticmethod
     def validate_name(first_last, name):
+        # Valida el nombre o el apellido dependiendo de ciertas condiciones
         # Conditional
         # Pide si es primer nombre o el apellido
         # Comenzar con mayúscula cada nuevo añadido
@@ -126,6 +132,7 @@ class UsuarioBanco:
 
     @staticmethod
     def create_id_account(id_account):
+        # Crea una ID aleatoria
         if id_account is None:
             characters = np.append(np.array(['a', 'b', 'c', 'd', 'e', 'f']), range(10))
             new_id = ''
@@ -134,6 +141,12 @@ class UsuarioBanco:
             return new_id
         else:
             return id_account
+
+    @staticmethod
+    def encrypt(password):
+        # Permite encriptar la contraseña y la devuelve como tipo de dato de str
+        hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt(rounds=10))
+        return hashed.decode()
 
     @property
     def username(self):
@@ -191,9 +204,3 @@ class UsuarioBanco:
                f'Nombre: {self.__name}\n' \
                f'Apellido: {self.__last_name}\n' \
                f'Monto: {self.__money}'
-
-
-if __name__ == '__main__':
-    var = 'jhajajajajaja'
-    usuario = UsuarioBanco()
-    print(usuario)

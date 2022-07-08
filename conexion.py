@@ -1,6 +1,5 @@
 from psycopg2 import pool
 import sys
-from logging import log
 
 
 class Conexion:
@@ -46,14 +45,3 @@ class Conexion:
     def liberate_all(cls):
         cls.get_pool().closeall()
         print('Se ha cerrado todas las conexiones de la base de datos:', cls._DATABASE)
-
-
-if __name__ == '__main__':
-    variable1 = Conexion.get_connect()
-    variable2 = Conexion.get_connect()
-    variable3 = Conexion.get_connect()
-    variable4 = Conexion.get_connect()
-    variable5 = Conexion.get_connect()
-    Conexion.liberate_connect(variable1)
-    Conexion.liberate_all()
-

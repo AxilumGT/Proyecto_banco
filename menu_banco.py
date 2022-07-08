@@ -7,6 +7,7 @@ import sys
 class MenuBanco:
     @staticmethod
     def start_menu():
+        # Menú principal
         print('Bienvenido al Banco\n')
         while True:
             try:
@@ -33,6 +34,7 @@ class MenuBanco:
 
     @staticmethod
     def personal(user):
+        # Menú del usuario ya ingresado
         print(f'Bienvenido al banco {user.name} {user.last_name}')
         while True:
             try:
@@ -75,12 +77,13 @@ class MenuBanco:
 
     @staticmethod
     def get_user_password():
+        # Permite saber si el usuario y la contraseña son correctos o existen en la base de datos
         for count in range(3):
-            username = str(input('Introduzca su usuario: '))
+            mail = str(input('Introduzca su correo electrónico: '))
             password = getpass.getpass('Introduzca su contraseña: ')
-            user = UsuarioDAO.iniciar_sesion(username, password)
+            user = UsuarioDAO.iniciar_sesion(mail, password)
             if user is None:
-                print('El usuario o contraseña estan errados, intentelo nuevamente')
+                print('El correo o contraseña estan errados, intentelo nuevamente')
                 continue
             else:
                 return user
